@@ -16,6 +16,6 @@ for office, locationKey in offices.items():
     response = requests.get('https://pass-og-id.politiet.no/qmaticwebbooking/rest/schedule/branches/{locationKey}/dates;servicePublicId=8e859bd4c1752249665bf2363ea231e1678dbb7fc4decff862d9d41975a9a95a;customSlotLength=10'.format(locationKey=locationKey))
     if len(response.json()) > 0:
         firstAvailableDate = datetime.datetime.strptime(response.json()[0]['date'], '%Y-%m-%d').date()
-        oneMonthAhead = date.today() + relativedelta(months=2)
-        if firstAvailableDate < oneMonthAhead:
+        timeAheadToSearch = date.today() + relativedelta(months=2)
+        if firstAvailableDate < timeAheadToSearch:
             print('%s har første ledige time %s'%(office, firstAvailableDate))
